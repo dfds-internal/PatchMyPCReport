@@ -9,12 +9,17 @@
 # Recommend PowerShell 7+ for this script
 
 
-#region ------------------------------------------ Variables --------------------------------------------
-[validateset('Overview','Detailed','All')]
-$ReportType = "All" # Specify 'Overview' for the Overview report only, 'Detailed' for the Detailed report only, or 'All' for both
-$ResourceGroup = "<ResourceGroupName>" # Reource group that hosts the storage account
-$StorageAccount = "<StorageAccountName>" # Storage account name
-$Container = "<ContainerName>" # Container name
+#region ------------------------------------------ PARAMETERS --------------------------------------------
+[CmdletBinding()]
+param (
+    [Parameter()]
+    [validateset('Overview','Detailed','All')]
+    $ReportType, # Specify 'Overview' for the Overview report only, 'Detailed' for the Detailed report only, or 'All' for both
+    $ResourceGroup, # Reource group that hosts the storage account
+    $StorageAccount, # Storage account name
+    $Container # Container name
+)
+
 $script:Destination = "$env:Temp" # Temp location for exporting the reports
 # Make sure the thread culture is US for consistency of dates. Applies only to the single execution.
 If ([System.Globalization.CultureInfo]::CurrentUICulture.Name -ne "en-US")
